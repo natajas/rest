@@ -3,13 +3,16 @@ package pl.example.spring.zad03;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @RestController
 @RequestMapping("/punkty")
 
 public class PunktyController
 {
+    private final StudentService service;
    /* private static CopyOnWriteArrayList
             <String> students = new CopyOnWriteArrayList<>(new String[]{
             "Student 1",
@@ -20,21 +23,30 @@ public class PunktyController
             "Alex D"
     });*/
 
-    private StudentService service=new StudentService();
+    //private StudentService service=new StudentService(repository);
 
+    public PunktyController(StudentService service)
+    {
+        this.service = service;
 
+    }
+
+    private CopyOnWriteArrayList<String> users= new CopyOnWriteArrayList<>();
+    {
+        this.users.addAll(Arrays.asList("Student1","Student2","Student3","Student4","Student5"));
+    }
 
     @RequestMapping(value = "/students", method = RequestMethod.GET)//produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<Student> getUsers() {
        // return students;
-        return this.service.getStudents().asJava();
+        return service.getStudents().asJava();
     }
 
     @PostMapping( value ="/students/add",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 
     public Student addUser(@RequestBody NewStudent student){
 
-        return this.service.addStudent(student);
+        return service.addStudent(student);
     }}
 
 

@@ -6,14 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-
-
 public class StudentRow {
 
     protected StudentRow()
-    {
-
-    }
+    { }
     public StudentRow(String name, String number, String group)
     { this.name = name;
         this.number = number;
@@ -51,12 +47,11 @@ public class StudentRow {
         this.number = number;
     }
 
-    public String getgroup() {
+    public String getGroup() {
         return group;
     }
 
-    public void setgroup(String group) {
+    public void setGroup(String group) {
         this.group = group;
     }
-
 }
